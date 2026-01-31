@@ -2217,8 +2217,8 @@
             </div>
         </div>
         
-        <!-- Google AdSense Banner (작은 배너) -->
-        <div class="bottom-ad" id="googleAdBanner" style="display: block; margin-bottom: 24px;">
+        <!-- Google AdSense Banner (무료 사용자만 표시, 프리미엄은 숨김) -->
+        <div class="bottom-ad" id="googleAdBanner" style="display: none; margin-bottom: 24px;">
             <div style="font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 8px; text-align: center;">광고</div>
             <ins class="adsbygoogle"
                  style="display:inline-block;width:100%;max-height:100px;overflow:hidden;"
@@ -4837,20 +4837,24 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
             const isPremium = appData.isPremium && (!appData.premiumExpiry || new Date(appData.premiumExpiry) > new Date());
             
             if (isPremium) {
-                // Hide ads
+                // Hide ads (모든 광고 숨김)
                 const adBanner = document.getElementById('adBanner');
                 const bottomAd = document.getElementById('bottomAd');
+                const googleAdBanner = document.getElementById('googleAdBanner'); // Google AdSense
                 if (adBanner) adBanner.style.display = 'none';
                 if (bottomAd) bottomAd.style.display = 'none';
+                if (googleAdBanner) googleAdBanner.style.display = 'none'; // AdSense도 숨김
                 
                 // Show premium badge
                 document.getElementById('premiumBadge').style.display = 'inline-block';
             } else {
-                // Show ads
+                // Show ads (무료 사용자에게 광고 표시)
                 const adBanner = document.getElementById('adBanner');
                 const bottomAd = document.getElementById('bottomAd');
+                const googleAdBanner = document.getElementById('googleAdBanner'); // Google AdSense
                 if (adBanner) adBanner.style.display = 'block';
                 if (bottomAd) bottomAd.style.display = 'block';
+                if (googleAdBanner) googleAdBanner.style.display = 'block'; // AdSense도 표시
                 
                 // Hide premium badge
                 document.getElementById('premiumBadge').style.display = 'none';
