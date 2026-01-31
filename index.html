@@ -2169,10 +2169,10 @@
 <body>
     <div class="header">
         <h1>
-            🐾 PetCare
+            🐾 펫케어
             <span class="premium-badge" id="premiumBadge" style="display: none;">PRO</span>
         </h1>
-        <p id="headerSubtitle">반려동물의 건강을 체계적으로 관리하세요</p>
+        <p id="headerSubtitle">반려동물의 건강을 펫케어가 관리해드려요</p>
         
         <!-- Global Search Bar -->
         <div class="search-bar" style="margin-top: 16px; position: relative;">
@@ -2200,7 +2200,7 @@
             <div class="ad-content">
                 <div class="ad-icon">✨</div>
                 <div class="ad-text">
-                    <div class="ad-title">PetCare AI Pro로 업그레이드</div>
+                    <div class="ad-title">펫케어 AI Pro로 업그레이드</div>
                     <div class="ad-subtitle">광고 제거 · 무제한 반려동물 · 무제한 가족 공유</div>
                 </div>
                 <button class="ad-button" onclick="openPremiumModal()">업그레이드</button>
@@ -2490,7 +2490,7 @@
             <div style="display: flex; align-items: center; gap: 16px;">
                 <div style="font-size: 48px;">✨</div>
                 <div style="flex: 1;">
-                    <div style="font-weight: 700; font-size: 18px; margin-bottom: 4px;">PetCare AI Pro</div>
+                    <div style="font-weight: 700; font-size: 18px; margin-bottom: 4px;">펫케어 AI Pro</div>
                     <div style="font-size: 14px; color: var(--text-secondary);">광고 없이 모든 기능을 무제한으로</div>
                 </div>
                 <button class="add-btn" onclick="openPremiumModal()">업그레이드</button>
@@ -2502,7 +2502,7 @@
             <div style="display: flex; align-items: center; gap: 16px;">
                 <div style="font-size: 48px;">👑</div>
                 <div style="flex: 1;">
-                    <div style="font-weight: 700; font-size: 18px; margin-bottom: 4px;">PetCare AI Pro 구독 중</div>
+                    <div style="font-weight: 700; font-size: 18px; margin-bottom: 4px;">펫케어 AI Pro 구독 중</div>
                     <div style="font-size: 14px; opacity: 0.9;">다음 결제일: <span id="nextBillingDate"></span></div>
                 </div>
             </div>
@@ -3089,7 +3089,7 @@
             <div class="modal-header" style="border-bottom: none;">
                 <div style="width: 100%; text-align: center;">
                     <div style="font-size: 48px; margin-bottom: 12px;">✨</div>
-                    <div class="modal-title" style="font-size: 26px; margin-bottom: 8px;">PetCare AI Pro</div>
+                    <div class="modal-title" style="font-size: 26px; margin-bottom: 8px;">펫케어 AI Pro</div>
                     <div style="font-size: 14px; color: var(--text-secondary);">프리미엄으로 더 많은 기능을 누리세요</div>
                 </div>
                 <button class="close-btn" onclick="closeModal('premiumModal')" style="position: absolute; top: 20px; right: 20px;">×</button>
@@ -4888,7 +4888,7 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
             const periodText = selectedPeriod === 'monthly' ? '월간' : '연간';
             
             // In a real app, this would integrate with payment gateway (Stripe, PayPal, etc.)
-            if (confirm(`PetCare AI Pro ${periodText} 구독을 시작하시겠습니까?\n\n${price}이 결제됩니다.\n(이 데모에서는 실제 결제가 되지 않습니다)`)) {
+            if (confirm(`펫케어 AI Pro ${periodText} 구독을 시작하시겠습니까?\n\n${price}이 결제됩니다.\n(이 데모에서는 실제 결제가 되지 않습니다)`)) {
                 // Set premium status
                 appData.isPremium = true;
                 const expiryDate = new Date();
@@ -4905,7 +4905,7 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
                 closeModal('premiumModal');
                 
                 const savings = selectedPeriod === 'yearly' ? '\n연간 구독으로 10,800원 절약!' : '';
-                alert(`🎉 축하합니다!\n\nPetCare AI Pro 구독이 시작되었습니다.\n광고 없이 모든 기능을 무제한으로 사용하세요!${savings}`);
+                alert(`🎉 축하합니다!\n\n펫케어 AI Pro 구독이 시작되었습니다.\n광고 없이 모든 기능을 무제한으로 사용하세요!${savings}`);
                 
                 // Reload to show changes
                 location.reload();
