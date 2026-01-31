@@ -7496,8 +7496,11 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
             }
         });
         */
-    </script>// RevenueCat 초기화
-document.addEventListener('DOMContentLoaded', async () => {
+    </script>
+    
+    <script>
+    // RevenueCat 초기화
+    document.addEventListener('DOMContentLoaded', async () => {
   const isNative = typeof Capacitor !== 'undefined' && Capacitor.isNativePlatform();
   
   if (isNative) {
