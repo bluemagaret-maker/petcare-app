@@ -2164,9 +2164,218 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.3);
         }
+        
+        /* Onboarding Tutorial Styles */
+        .onboarding-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .onboarding-overlay.active {
+            display: flex;
+        }
+        
+        .onboarding-content {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 32px 24px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.4s ease;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .onboarding-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .onboarding-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .onboarding-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+        
+        .onboarding-steps {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        
+        .onboarding-step {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .onboarding-step.active {
+            width: 24px;
+            border-radius: 4px;
+            background: var(--primary);
+        }
+        
+        .onboarding-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .onboarding-btn {
+            flex: 1;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .onboarding-btn.primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+        
+        .onboarding-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        }
+        
+        .onboarding-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+        }
+        
+        .onboarding-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Toast Notification Styles */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            color: var(--text);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 250px;
+            animation: toastSlideUp 0.3s ease;
+        }
+        
+        @keyframes toastSlideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+        
+        .toast.show {
+            display: flex;
+        }
+        
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+        
+        .toast.error {
+            border-left: 4px solid var(--danger);
+        }
+        
+        .toast.warning {
+            border-left: 4px solid var(--warning);
+        }
+        
+        .toast-icon {
+            font-size: 24px;
+        }
+        
+        .toast-message {
+            flex: 1;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
+    <!-- Onboarding Tutorial -->
+    <div class="onboarding-overlay" id="onboardingOverlay">
+        <div class="onboarding-content">
+            <div class="onboarding-icon" id="onboardingIcon">🐾</div>
+            <div class="onboarding-title" id="onboardingTitle">펫케어에 오신 것을 환영합니다!</div>
+            <div class="onboarding-text" id="onboardingText">반려동물의 건강을 체계적으로 관리해보세요</div>
+            
+            <div class="onboarding-steps">
+                <div class="onboarding-step active"></div>
+                <div class="onboarding-step"></div>
+                <div class="onboarding-step"></div>
+            </div>
+            
+            <div class="onboarding-buttons">
+                <button class="onboarding-btn secondary" id="onboardingSkip" onclick="skipOnboarding()">건너뛰기</button>
+                <button class="onboarding-btn primary" id="onboardingNext" onclick="nextOnboardingStep()">다음</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toastIcon">✓</div>
+        <div class="toast-message" id="toastMessage"></div>
+    </div>
+
     <div class="header">
         <h1>
             🐾 펫케어
@@ -3510,63 +3719,6 @@
     </div>
 
     <!-- Onboarding Modal -->
-    <div class="modal" id="onboardingModal" style="z-index: 20000;">
-        <div class="modal-content" style="max-width: 500px;">
-            <div class="modal-body" style="padding: 40px 30px;">
-                <div id="onboardingStep1" class="onboarding-step">
-                    <div style="font-size: 64px; text-align: center; margin-bottom: 20px;">🐾</div>
-                    <h2 style="text-align: center; font-size: 24px; font-weight: 800; margin-bottom: 12px;">PetCare에 오신 것을 환영합니다!</h2>
-                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 32px;">
-                        반려동물의 건강을 체계적으로 관리하세요
-                    </p>
-                    <button class="btn btn-primary" onclick="nextOnboardingStep(2)" style="width: 100%;">시작하기</button>
-                </div>
-                
-                <div id="onboardingStep2" class="onboarding-step" style="display: none;">
-                    <div style="font-size: 64px; text-align: center; margin-bottom: 20px;">📸</div>
-                    <h2 style="text-align: center; font-size: 22px; font-weight: 800; margin-bottom: 12px;">사진 앨범</h2>
-                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 24px;">
-                        소중한 순간을 기록하고<br>추억을 되돌아보세요
-                    </p>
-                    <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-secondary" onclick="nextOnboardingStep(1)" style="flex: 1;">이전</button>
-                        <button class="btn btn-primary" onclick="nextOnboardingStep(3)" style="flex: 1;">다음</button>
-                    </div>
-                </div>
-                
-                <div id="onboardingStep3" class="onboarding-step" style="display: none;">
-                    <div style="font-size: 64px; text-align: center; margin-bottom: 20px;">🍖</div>
-                    <h2 style="text-align: center; font-size: 22px; font-weight: 800; margin-bottom: 12px;">식단 관리</h2>
-                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 24px;">
-                        매일 무엇을 먹였는지 기록하고<br>칼로리와 급여량을 관리하세요
-                    </p>
-                    <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-secondary" onclick="nextOnboardingStep(2)" style="flex: 1;">이전</button>
-                        <button class="btn btn-primary" onclick="nextOnboardingStep(4)" style="flex: 1;">다음</button>
-                    </div>
-                </div>
-                
-                <div id="onboardingStep4" class="onboarding-step" style="display: none;">
-                    <div style="font-size: 64px; text-align: center; margin-bottom: 20px;">💉</div>
-                    <h2 style="text-align: center; font-size: 22px; font-weight: 800; margin-bottom: 12px;">건강 기록</h2>
-                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 24px;">
-                        예방접종, 투약, 병원 방문 기록을<br>한 곳에서 관리하세요
-                    </p>
-                    <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-secondary" onclick="nextOnboardingStep(3)" style="flex: 1;">이전</button>
-                        <button class="btn btn-primary" onclick="completeOnboarding()" style="flex: 1;">시작하기</button>
-                    </div>
-                </div>
-                
-                <div style="display: flex; justify-content: center; gap: 8px; margin-top: 24px;">
-                    <div class="onboarding-dot" id="dot1"></div>
-                    <div class="onboarding-dot" id="dot2"></div>
-                    <div class="onboarding-dot" id="dot3"></div>
-                    <div class="onboarding-dot" id="dot4"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
@@ -3610,13 +3762,16 @@
             ],
             notifications: {
                 vaccination: false,
-                medication: false
+                medication: false,
+                enabled: false,
+                reminders: [] // { id, type, petId, date, title, message }
             },
             trash: {
                 pets: [],
                 deletedAt: {}
             },
-            weightHistory: [] // { petId, weight, date }
+            weightHistory: [], // { petId, weight, date }
+            onboardingCompleted: false // 온보딩 완료 여부
         };
         
         let currentRecordType = '';
@@ -3654,6 +3809,15 @@
                         deletedAt: {}
                     };
                 }
+                if (!appData.onboardingCompleted) {
+                    appData.onboardingCompleted = false;
+                }
+                if (!appData.notifications.enabled) {
+                    appData.notifications.enabled = false;
+                }
+                if (!appData.notifications.reminders) {
+                    appData.notifications.reminders = [];
+                }
                 
                 // Save updated data with new fields
                 saveData();
@@ -3661,7 +3825,18 @@
         }
         
         function saveData() {
-            localStorage.setItem('petHealthDiary', JSON.stringify(appData));
+            try {
+                localStorage.setItem('petHealthDiary', JSON.stringify(appData));
+                return true;
+            } catch (error) {
+                console.error('데이터 저장 실패:', error);
+                if (error.name === 'QuotaExceededError') {
+                    showToast('저장 공간이 부족합니다. 일부 데이터를 삭제해주세요.', 'error');
+                } else {
+                    showToast('데이터 저장에 실패했습니다. 다시 시도해주세요.', 'error');
+                }
+                return false;
+            }
         }
         
         function init() {
@@ -3676,6 +3851,178 @@
             // Check if first time user
             checkOnboarding();
         }
+        
+        // ===== ONBOARDING FUNCTIONS =====
+        let currentOnboardingStep = 0;
+        const onboardingSteps = [
+            {
+                icon: '🐾',
+                title: '펫케어에 오신 것을 환영합니다!',
+                text: '반려동물의 건강을 체계적으로 관리해보세요'
+            },
+            {
+                icon: '📋',
+                title: '모든 건강 기록을 한 곳에',
+                text: '예방접종, 투약 기록, 식단 관리까지 간편하게 기록하세요'
+            },
+            {
+                icon: '🔔',
+                title: '잊지 않도록 알림 설정',
+                text: '예방접종 일정과 투약 시간을 놓치지 마세요'
+            }
+        ];
+        
+        function checkOnboarding() {
+            if (!appData.onboardingCompleted) {
+                setTimeout(() => {
+                    document.getElementById('onboardingOverlay').classList.add('active');
+                }, 500);
+            } else {
+                // 알림 체크
+                checkReminders();
+            }
+        }
+        
+        function nextOnboardingStep() {
+            currentOnboardingStep++;
+            
+            if (currentOnboardingStep >= onboardingSteps.length) {
+                completeOnboarding();
+                return;
+            }
+            
+            updateOnboardingContent();
+        }
+        
+        function updateOnboardingContent() {
+            const step = onboardingSteps[currentOnboardingStep];
+            
+            document.getElementById('onboardingIcon').textContent = step.icon;
+            document.getElementById('onboardingTitle').textContent = step.title;
+            document.getElementById('onboardingText').textContent = step.text;
+            
+            // Update progress dots
+            document.querySelectorAll('.onboarding-step').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentOnboardingStep);
+            });
+            
+            // Update button text on last step
+            if (currentOnboardingStep === onboardingSteps.length - 1) {
+                document.getElementById('onboardingNext').textContent = '시작하기';
+            }
+        }
+        
+        function skipOnboarding() {
+            completeOnboarding();
+        }
+        
+        function completeOnboarding() {
+            appData.onboardingCompleted = true;
+            saveData();
+            document.getElementById('onboardingOverlay').classList.remove('active');
+            showToast('펫케어를 시작합니다! 🎉', 'success');
+            
+            // 첫 반려동물 추가 유도
+            setTimeout(() => {
+                if (appData.pets.length === 0) {
+                    showToast('첫 반려동물을 추가해주세요 😊', 'info');
+                }
+            }, 1500);
+        }
+        
+        // ===== TOAST NOTIFICATION FUNCTIONS =====
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            const messageEl = document.getElementById('toastMessage');
+            
+            // Set icon based on type
+            const icons = {
+                success: '✓',
+                error: '✕',
+                warning: '⚠',
+                info: 'ℹ'
+            };
+            
+            icon.textContent = icons[type] || icons.success;
+            messageEl.textContent = message;
+            
+            // Remove old type classes and add new one
+            toast.className = 'toast show ' + type;
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // ===== NOTIFICATION & REMINDER FUNCTIONS =====
+        function checkReminders() {
+            if (!appData.notifications.enabled) return;
+            
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            // Check vaccinations
+            appData.vaccinations.forEach(vac => {
+                const vacDate = new Date(vac.date);
+                vacDate.setHours(0, 0, 0, 0);
+                
+                const daysUntil = Math.ceil((vacDate - today) / (1000 * 60 * 60 * 24));
+                
+                if (daysUntil === 7 || daysUntil === 3 || daysUntil === 1) {
+                    const pet = appData.pets.find(p => p.id === vac.petId);
+                    if (pet) {
+                        showToast(`${pet.name}의 ${vac.type} 예방접종이 ${daysUntil}일 남았습니다`, 'warning');
+                    }
+                } else if (daysUntil === 0) {
+                    const pet = appData.pets.find(p => p.id === vac.petId);
+                    if (pet) {
+                        showToast(`${pet.name}의 ${vac.type} 예방접종 당일입니다!`, 'warning');
+                    }
+                }
+            });
+            
+            // Check medications
+            appData.medications.forEach(med => {
+                if (med.endDate) {
+                    const endDate = new Date(med.endDate);
+                    endDate.setHours(0, 0, 0, 0);
+                    
+                    const daysUntil = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+                    
+                    if (daysUntil === 1 || daysUntil === 0) {
+                        const pet = appData.pets.find(p => p.id === med.petId);
+                        if (pet) {
+                            showToast(`${pet.name}의 ${med.name} 투약이 곧 종료됩니다`, 'info');
+                        }
+                    }
+                }
+            });
+        }
+        
+        function toggleNotifications() {
+            appData.notifications.enabled = !appData.notifications.enabled;
+            saveData();
+            
+            if (appData.notifications.enabled) {
+                showToast('알림이 활성화되었습니다 🔔', 'success');
+                checkReminders();
+            } else {
+                showToast('알림이 비활성화되었습니다', 'info');
+            }
+        }
+        
+        // ===== ERROR HANDLING =====
+        window.addEventListener('error', function(e) {
+            console.error('전역 에러:', e.error);
+            showToast('오류가 발생했습니다. 페이지를 새로고침해주세요.', 'error');
+        });
+        
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Promise 에러:', e.reason);
+            showToast('데이터 처리 중 오류가 발생했습니다.', 'error');
+        });
         
         // ===== FAQ & SUPPORT FUNCTIONS =====
         function openFAQModal() {
@@ -4774,53 +5121,6 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
             checkNotifications();
         });
         
-        // ===== ONBOARDING FUNCTIONS =====
-        let currentOnboardingStep = 1;
-        
-        function checkOnboarding() {
-            const hasSeenOnboarding = localStorage.getItem('petcare_onboarding_complete');
-            
-            if (!hasSeenOnboarding && appData.pets.length === 0) {
-                setTimeout(() => {
-                    document.getElementById('onboardingModal').classList.add('active');
-                    updateOnboardingDots();
-                }, 500);
-            }
-        }
-        
-        function nextOnboardingStep(step) {
-            // Hide all steps
-            for (let i = 1; i <= 4; i++) {
-                document.getElementById(`onboardingStep${i}`).style.display = 'none';
-            }
-            
-            // Show target step
-            document.getElementById(`onboardingStep${step}`).style.display = 'block';
-            currentOnboardingStep = step;
-            updateOnboardingDots();
-        }
-        
-        function updateOnboardingDots() {
-            for (let i = 1; i <= 4; i++) {
-                const dot = document.getElementById(`dot${i}`);
-                if (i === currentOnboardingStep) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            }
-        }
-        
-        function completeOnboarding() {
-            localStorage.setItem('petcare_onboarding_complete', 'true');
-            closeModal('onboardingModal');
-            
-            // Open add pet modal
-            setTimeout(() => {
-                openAddPetModal();
-            }, 300);
-        }
-        
         // Premium Functions
         let selectedPeriod = 'monthly';
         
@@ -5399,28 +5699,48 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
         document.getElementById('addPetForm').addEventListener('submit', (e) => {
             e.preventDefault();
             
-            const newPet = {
-                id: Date.now(),
-                name: document.getElementById('petName').value,
-                type: document.getElementById('petType').value,
-                breed: document.getElementById('petBreed').value,
-                birthday: document.getElementById('petBirthday').value,
-                weight: document.getElementById('petWeight').value
-            };
-            
-            appData.pets.push(newPet);
-            saveData();
-            renderPets();
-            selectPet(newPet.id);
-            closeModal('addPetModal');
-            
-            // Show success message
-            showSuccessToast(`${newPet.name}이(가) 추가되었습니다!`);
-            
-            // Navigate to home
-            switchTab('home');
-            
-            e.target.reset();
+            try {
+                const petName = document.getElementById('petName').value.trim();
+                
+                // Validation
+                if (!petName) {
+                    showToast('반려동물 이름을 입력해주세요', 'error');
+                    return;
+                }
+                
+                const newPet = {
+                    id: Date.now(),
+                    name: petName,
+                    type: document.getElementById('petType').value,
+                    breed: document.getElementById('petBreed').value,
+                    birthday: document.getElementById('petBirthday').value,
+                    weight: document.getElementById('petWeight').value
+                };
+                
+                appData.pets.push(newPet);
+                
+                if (!saveData()) {
+                    // 저장 실패 시 롤백
+                    appData.pets.pop();
+                    return;
+                }
+                
+                renderPets();
+                selectPet(newPet.id);
+                closeModal('addPetModal');
+                
+                // Show success message
+                showSuccessToast(`${newPet.name}이(가) 추가되었습니다!`);
+                showToast(`${newPet.name}의 건강 관리를 시작합니다! 🎉`, 'success');
+                
+                // Navigate to home
+                switchTab('home');
+                
+                e.target.reset();
+            } catch (error) {
+                console.error('반려동물 추가 실패:', error);
+                showToast('반려동물 추가에 실패했습니다. 다시 시도해주세요.', 'error');
+            }
         });
         
         document.getElementById('addRecordForm').addEventListener('submit', (e) => {
@@ -6982,8 +7302,9 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
                             saveData();
                             renderPhotos();
                             showSuccessToast(`${processed}개 추가됨 (${failed}개 실패)`);
+                            showToast(`${failed}개의 사진 업로드에 실패했습니다`, 'warning');
                         } else {
-                            alert(`사진 업로드 실패: ${err.message}`);
+                            showToast(`사진 업로드 실패: ${err.message}`, 'error');
                         }
                     }
                 });
@@ -7463,46 +7784,6 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
             
             e.target.reset();
         });
-    </script>
-    <!-- ChannelTalk -->
-    <script>
-        // ChannelTalk 설치 가이드
-        // 1. https://channel.io 가입
-        // 2. 플러그인 키 발급
-        // 3. 아래 YOUR_PLUGIN_KEY를 실제 키로 교체
-        
-        /*
-        (function(){
-            var w=window;
-            if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}
-            var ch=function(){ch.c(arguments);};
-            ch.q=[];
-            ch.c=function(args){ch.q.push(args);};
-            w.ChannelIO=ch;
-            function l(){
-                if(w.ChannelIOInitialized){return;}
-                w.ChannelIOInitialized=true;
-                var s=document.createElement("script");
-                s.type="text/javascript";
-                s.async=true;
-                s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";
-                var x=document.getElementsByTagName("script")[0];
-                if(x.parentNode){x.parentNode.insertBefore(s,x);}
-            }
-            if(document.readyState==="complete"){l();}
-            else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}
-        })();
-        
-        ChannelIO('boot', {
-            "pluginKey": "YOUR_PLUGIN_KEY", // 여기에 실제 플러그인 키 입력
-            "memberId": null,
-            "profile": {
-                "name": null,
-                "mobileNumber": null,
-                "email": null
-            }
-        });
-        */
     </script>
     
     <script>
