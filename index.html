@@ -2198,23 +2198,14 @@
         <!-- Ad Banner (Free Version) -->
         <div class="ad-banner" id="adBanner" style="display: none;">
             <div class="ad-content">
-                <div class="ad-icon">✨</div>
+                <div class="ad-icon">🎁</div>
                 <div class="ad-text">
-                    <div class="ad-title">펫케어 AI Pro로 업그레이드</div>
-                    <div class="ad-subtitle">광고 제거 · 무제한 반려동물 · 무제한 가족 공유</div>
+                    <div class="ad-title">더 많은 기능이 필요하신가요?</div>
+                    <div class="ad-subtitle">Pro로 더 편리한 펫케어 경험을 시작하세요</div>
                 </div>
-                <button class="ad-button" onclick="openPremiumModal()">업그레이드</button>
+                <button class="ad-button" onclick="openPremiumModal()">더 알아보기</button>
             </div>
             <button class="ad-close" onclick="hideAd()" title="닫기">×</button>
-        </div>
-        
-        <!-- Bottom Ad (Free Version) -->
-        <div class="bottom-ad" id="bottomAd" style="display: none;">
-            <div style="font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 8px; text-align: center;">광고</div>
-            <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer;" onclick="openPremiumModal()">
-                <div style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">🎯 반려동물 보험</div>
-                <div style="font-size: 13px; color: var(--text-secondary);">월 9,900원부터 · 의료비 최대 90% 보장</div>
-            </div>
         </div>
         
         <!-- Google AdSense Banner (무료 사용자만 표시, 프리미엄은 숨김) -->
@@ -4839,10 +4830,8 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
             if (isPremium) {
                 // Hide ads (모든 광고 숨김)
                 const adBanner = document.getElementById('adBanner');
-                const bottomAd = document.getElementById('bottomAd');
                 const googleAdBanner = document.getElementById('googleAdBanner'); // Google AdSense
                 if (adBanner) adBanner.style.display = 'none';
-                if (bottomAd) bottomAd.style.display = 'none';
                 if (googleAdBanner) googleAdBanner.style.display = 'none'; // AdSense도 숨김
                 
                 // Show premium badge
@@ -4850,11 +4839,9 @@ ${medications.slice(0, 5).map(m => `· ${m.name} - ${m.frequency}`).join('\n')}
             } else {
                 // Show ads (무료 사용자에게 광고 표시)
                 const adBanner = document.getElementById('adBanner');
-                const bottomAd = document.getElementById('bottomAd');
                 const googleAdBanner = document.getElementById('googleAdBanner'); // Google AdSense
                 if (adBanner) adBanner.style.display = 'block';
-                if (bottomAd) bottomAd.style.display = 'block';
-                if (googleAdBanner) googleAdBanner.style.display = 'block'; // AdSense도 표시
+                if (googleAdBanner) googleAdBanner.style.display = 'block'; // AdSense만 표시
                 
                 // Hide premium badge
                 document.getElementById('premiumBadge').style.display = 'none';
